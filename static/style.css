@@ -1,0 +1,141 @@
+:root {
+  /* CSS HEX */
+  --lavender-blush: #f6e8eaff;
+  --bright-pink-crayola: #ef626cff;
+  --violet-jtc: #4a2545ff;
+  --black: #000001ff;
+  --cambridge-blue: #90aa86ff;
+
+  /* CSS HSL */
+  --lavender-blush: hsla(351, 44%, 94%, 1);
+  --bright-pink-crayola: hsla(356, 82%, 66%, 1);
+  --violet-jtc: hsla(308, 33%, 22%, 1);
+  --black: hsla(240, 100%, 0%, 1);
+  --cambridge-blue: hsla(103, 17%, 60%, 1);
+
+  --color-bg: var(--black);
+  --color-bg-special: var(--violet-jtc);
+  --color-text: var(--lavender-blush);
+  --color-text-special: var(--cambridge-blue);
+
+  --font-sans: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui,
+    helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial,
+    sans-serif;
+  --font-serif: Iowan Old Style, Apple Garamond, Baskerville, Times New Roman,
+    Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji,
+    Segoe UI Emoji, Segoe UI Symbol;
+  --font-mono: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console,
+    monospace;
+
+  --text-size-xs: 0.64rem;
+  --text-size-sm: 0.8rem;
+  --text-size-md: 1rem;
+  --text-size-lg: 1.25rem;
+  --text-size-xl: 1.56rem;
+  --text-size-2xl: 1.95rem;
+  --text-size-3xl: 2.44rem;
+  --text-size-4xl: 3.05rem;
+  --text-size-5xl: 3.81rem;
+
+  --space-s: 0.5rem;
+  --space-m: 1rem;
+  --space-l: 1.25rem;
+
+  --container-width: 1200px;
+  --sidebar-width: 300px;
+}
+
+html {
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  width: 100%;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+:where(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--font-sans);
+  font-weight: bold;
+}
+
+h1 {
+  margin-top: 0;
+  font-size: var(--text-size-2xl);
+}
+
+h2 {
+  font-size: var(--text-size-xl);
+}
+
+h3 {
+  font-size: var(--text-size-lg);
+}
+
+:where(h4, h5, h6) {
+  font-size: var(--text-size-md);
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul {
+  display: flex;
+  gap: var(--space-m);
+}
+
+.root-container {
+  flex: 1 0 auto;
+  gap: var(--space-m);
+}
+
+@media (min-width: 640px) {
+  h1 {
+    font-size: var(--text-size-5xl);
+  }
+
+  h2 {
+    font-size: var(--text-size-4xl);
+  }
+
+  h3 {
+    font-size: var(--text-size-3xl);
+  }
+
+  h4 {
+    font-size: var(--text-size-2xl);
+  }
+
+  h5 {
+    font-size: var(--text-size-xl);
+  }
+
+  h6 {
+    font-size: var(--text-size-lg);
+  }
+
+  .root-container {
+    display: flex;
+    flex-direction: row-reverse;
+    padding: var(--space-m);
+  }
+
+  .root-container aside {
+    width: var(--sidebar-width);
+  }
+}

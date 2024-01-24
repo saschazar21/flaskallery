@@ -1,0 +1,17 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "emmet.includeLanguages": {
+    "jinja-html": "html"
+  },
+  "files.associations": {
+    "*.html": "jinja-html"
+  },
+  "[jinja-html]": {
+    "djlint.enableLinting": true,
+    "djlint.profile": "jinja",
+    "editor.defaultFormatter": "monosans.djlint"
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.autopep8"
+  }
+}

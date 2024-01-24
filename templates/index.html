@@ -1,0 +1,5 @@
+{% extends "default.html" %}
+{% block main %}
+  {{ render_partial("partials/gallery.html", pictures=page.data) }}
+  {{ render_partial("partials/pagination.html", meta=page.meta, path=path) }}
+{% endblock main %}

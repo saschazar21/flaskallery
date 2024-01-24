@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="description"
+          content="Eine Galerie aus lokal gespeicherten Fotos" />
+    <meta name="keywords" content="fotos, galerie" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      {% if title %}{{ title }} -{% endif %}
+    Galerie</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gardevoir" />
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" />
+  </head>
+  <body>
+    {% block header %}
+    {% endblock header %}
+    {% block content required %}
+    {% endblock content %}
+  </body>
+</html>

@@ -1,0 +1,42 @@
+{% set current_page = meta.page %}
+{% set first_page = 1 %}
+{% set last_page = meta.pages %}
+<nav>
+  <ul>
+    {% if current_page > 1 %}
+      <li>
+        <a href="{{ path }}?page={{ current_page - 1 }}" title="Vorherige Seite"><</a>
+      </li>
+    {% endif %}
+    <li>
+      <a href="{{ path }}?page=1"
+         {% if current_page == first_page %}aria-current="page"{% endif %}>1</a>
+    </li>
+    {% if current_page > 3 %}<li>…</li>{% endif %}
+    {% if current_page > 2 %}
+      <li>
+        <a href="{{ path }}?page={{ current_page - 1 }}">{{ current_page - 1 }}</a>
+      </li>
+    {% endif %}
+    {% if current_page > 1 and current_page < last_page %}
+      <li>
+        <a href="{{ path }}?page={{ current_page }}" aria-current="page">{{ current_page }}</a>
+      </li>
+    {% endif %}
+    {% if current_page + 1 < last_page %}
+      <li>
+        <a href="{{ path }}?page={{ current_page + 1 }}">{{ current_page + 1 }}</a>
+      </li>
+    {% endif %}
+    {% if current_page + 2 < last_page %}<li>…</li>{% endif %}
+    <li>
+      <a href="{{ path }}?page={{ last_page }}"
+         {% if current_page == last_page %}aria-current="page"{% endif %}>{{ last_page }}</a>
+    </li>
+    {% if current_page < last_page %}
+      <li>
+        <a href="{{ path }}?page={{ current_page + 1 }}" title="Nächste Seite">></a>
+      </li>
+    {% endif %}
+  </ul>
+</nav>

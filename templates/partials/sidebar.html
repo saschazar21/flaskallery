@@ -1,0 +1,5 @@
+{% if collections.data|length > 0 %}
+  <ul>
+    {% for collection in collections.data %}<li>{{ collection.name }}</li>{% endfor %}
+  </ul>
+{% endif %}
