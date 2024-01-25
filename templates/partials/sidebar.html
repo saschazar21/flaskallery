@@ -1,5 +1,10 @@
 {% if collections.data|length > 0 %}
   <ul>
-    {% for collection in collections.data %}<li>{{ collection.name }}</li>{% endfor %}
+    {% for collection in collections.data %}
+      <li>
+        <a href="/collections/{{ collection.path }}">{{ collection.name }}</a>
+      </li>
+    {% endfor %}
   </ul>
+  {% if collections.meta.pages > 1 %}<a href="/collections">Zeige alle</a>{% endif %}
 {% endif %}

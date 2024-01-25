@@ -3,14 +3,19 @@
 {% set last_page = meta.pages %}
 <nav>
   <ul>
-    {% if current_page > 1 %}
-      <li>
-        <a href="{{ path }}?page={{ current_page - 1 }}" title="Vorherige Seite"><</a>
-      </li>
-    {% endif %}
     <li>
-      <a href="{{ path }}?page=1"
-         {% if current_page == first_page %}aria-current="page"{% endif %}>1</a>
+      {% if current_page > 1 %}
+        <a href="{{ path }}?page={{ current_page - 1 }}" title="Vorherige Seite">&larr;</a>
+      {% else %}
+        <span aria-hidden>&larr;</span>
+      {% endif %}
+    </li>
+    <li>
+      {% if current_page == first_page %}
+        <span aria-current="page">1</span>
+      {% else %}
+        <a href="{{ path }}?page=1">1</a>
+      {% endif %}
     </li>
     {% if current_page > 3 %}<li>…</li>{% endif %}
     {% if current_page > 2 %}
@@ -20,7 +25,7 @@
     {% endif %}
     {% if current_page > 1 and current_page < last_page %}
       <li>
-        <a href="{{ path }}?page={{ current_page }}" aria-current="page">{{ current_page }}</a>
+        <span aria-current="page">{{ current_page }}</span>
       </li>
     {% endif %}
     {% if current_page + 1 < last_page %}
@@ -30,13 +35,18 @@
     {% endif %}
     {% if current_page + 2 < last_page %}<li>…</li>{% endif %}
     <li>
-      <a href="{{ path }}?page={{ last_page }}"
-         {% if current_page == last_page %}aria-current="page"{% endif %}>{{ last_page }}</a>
+      {% if current_page == last_page %}
+        <span aria-current="page">{{ last_page }}</span>
+      {% else %}
+        <a href="{{ path }}?page={{ last_page }}">{{ last_page }}</a>
+      {% endif %}
     </li>
-    {% if current_page < last_page %}
-      <li>
-        <a href="{{ path }}?page={{ current_page + 1 }}" title="Nächste Seite">></a>
-      </li>
-    {% endif %}
+    <li>
+      {% if current_page < last_page %}
+        <a href="{{ path }}?page={{ current_page + 1 }}" title="Nächste Seite">&rarr;</a>
+      {% else %}
+        <span aria-hidden>&rarr;</span>
+      {% endif %}
+    </li>
   </ul>
 </nav>

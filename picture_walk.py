@@ -1,27 +1,16 @@
 import os
-from db.queries import Query, INSERT_COLLECTION, INSERT_PICTURE
-
-PICTURES_ROOT = os.environ.get(
-    'PICTURES_ROOT') or os.path.abspath('~/Downloads')
-
-
-class Collection:
-    def __init__(self, path, name):
-        self.path = path
-        self.name = name
-
-    def __str__(self):
-        return f"Collection(name={self.name}, path={self.path})"
+import sqlite3
+from db import DATABASE, SCHEMA
+from db.queries import create_collection, create_picture, create_thumbnail
+from utils.pictures import PICTURES_ROOT, THUMBNAIL_ROOT, Collection, Picture
 
 
-class Picture:
-    def __init__(self, path, name, collection):
-        self.path = path
-        self.name = name
-        self.collection = collection
+def init_db():
+    db = sqlite3.connect(DATABASE)
+    with open(SCHEMA, mode='r') as schema:
+        db.cursor().executescript(schema.read())
 
-    def __str__(self):
-        return f"Picture(name={self.name}, path={self.path}, collection={self.collection})"
+    db.close()
 
 
 def extract_collection_name(root):
@@ -44,30 +33,29 @@ def picture_walk():
                 collection = Collection(relative_root, collection_name)
                 picture = Picture(os.path.join(
                     relative_root, name), name, collection)
+                picture.create_thumbnail()
                 pictures.append(picture)
 
     return pictures
 
 
 def update_db():
-    pictures = []
     collections = []
+    pictures = []
+    thumbnails = []
     for picture in picture_walk():
-        collections.append({
-            "name": picture.collection.name,
-            "path": picture.collection.path
-        })
-        pictures.append({
-            "name": picture.name,
-            "path": picture.path,
-            "collection": picture.collection.path
-        })
+        collections.append(picture.collection.asdict())
+        pictures.append(picture.asdict())
+        thumbnails.append(picture.thumbnail.asdict())
 
-    collections = Query(INSERT_COLLECTION).execute(collections)
-    pictures = Query(INSERT_PICTURE).execute(pictures)
+    create_thumbnail(thumbnails)
+    create_collection(collections)
+    create_picture(pictures)
 
-    return (collections, pictures)
+    return (collections, pictures, thumbnails)
 
 
 if __name__ == '__main__':
+    os.makedirs(THUMBNAIL_ROOT, exist_ok=True)
+    init_db()
     update_db()

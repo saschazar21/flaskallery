@@ -1,3 +1,13 @@
-{% for picture in pictures %}
-<img src="{{ picture.path }}" alt="" />
-{% endfor %}
+<div class="gallery">
+  {% for picture in pictures %}
+    <a href="/pictures/{{ picture.path }}"
+       title="{{ picture.name }}"
+       target="_blank"
+       {% if picture.thumbnail.height > picture.thumbnail.width %}data-portrait{% else %}data-landscape{% endif %}>
+      <img src="/t/{{ picture.thumbnail.path }}"
+           height="{{ picture.thumbnail.height }}"
+           width="{{ picture.thumbnail.width }}"
+           alt="" />
+    </a>
+  {% endfor %}
+</div>
