@@ -1,10 +1,10 @@
-{% if collections.data|length > 0 %}
-  <ul>
+{% if collections.data | length > 0 %}
+  <ul data-sidebar>
     {% for collection in collections.data %}
       <li>
-        <a href="/collections/{{ collection.path }}">{{ collection.name }}</a>
+        <a href="{{ url_for('Root.collection_by_path', path=collection.path) }}">{{ collection.name }}</a>
       </li>
     {% endfor %}
   </ul>
-  {% if collections.meta.pages > 1 %}<a href="/collections">Zeige alle</a>{% endif %}
+  <a href="{{ url_for('Root.collections_index',) }}" class="button">Zeige alle Alben &rarr;</a>
 {% endif %}

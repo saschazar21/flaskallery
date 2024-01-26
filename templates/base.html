@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gardevoir" />
     <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" />
   </head>
-  <body>
+  <body {% if class %}class="{{ class }}"{% endif %}>
     {% block header %}
     {% endblock header %}
     {% block content required %}

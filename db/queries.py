@@ -1,7 +1,8 @@
 import sqlite3
 import json
-from flask import g
+
 from . import DATABASE
+from utils.url import DEFAULT_PAGE_SIZE
 
 INSERT_COLLECTION = """
 INSERT INTO collections (path, name)
@@ -258,13 +259,13 @@ def create_thumbnail(params: dict[str, str | int] | list[dict[str, str | int]], 
 
 def paginate_all_collections(params: dict[str, int], connection: sqlite3.Connection | None = None):
     query = Query(PAGINATE_ALL_COLLECTIONS, connection)
-    rows = query.execute({'limit': 25, 'offset': 0, **params})
+    rows = query.execute({'limit': DEFAULT_PAGE_SIZE, 'offset': 0, **params})
     return json.loads(rows[0]['result'])
 
 
 def paginate_all_pictures(params: dict[str, int], connection: sqlite3.Connection | None = None):
     query = Query(PAGINATE_ALL_PICTURES, connection)
-    rows = query.execute({'limit': 25, 'offset': 0, **params})
+    rows = query.execute({'limit': DEFAULT_PAGE_SIZE, 'offset': 0, **params})
     return json.loads(rows[0]['result'])
 
 

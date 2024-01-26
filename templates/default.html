@@ -8,16 +8,5 @@
     {% endif %}
   </h1>
 {% endblock header %}
-{% block content %}
-  <div class="root-container">
-    <main>
-      {% block main required %}
-      {% endblock main %}
-    </main>
-    {% block sidebar %}
-      <aside>
-        {{ render_partial('partials/sidebar.html', collections=collections) }}
-      </aside>
-    {% endblock sidebar %}
-  </div>
+{% block content required %}
 {% endblock content %}

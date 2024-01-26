@@ -1,0 +1,14 @@
+{% extends "default.html" %}
+{% block content %}
+  <div class="root-container">
+    {% block sidebar %}
+      <aside>
+        {{ render_partial('partials/sidebar.html', collections=collections) }}
+      </aside>
+    {% endblock sidebar %}
+    <main>
+      {% block main required %}
+      {% endblock main %}
+    </main>
+  </div>
+{% endblock content %}

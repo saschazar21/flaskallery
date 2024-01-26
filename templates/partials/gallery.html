@@ -1,13 +1,16 @@
-<div class="gallery">
-  {% for picture in pictures %}
-    <a href="/pictures/{{ picture.path }}"
-       title="{{ picture.name }}"
-       target="_blank"
-       {% if picture.thumbnail.height > picture.thumbnail.width %}data-portrait{% else %}data-landscape{% endif %}>
-      <img src="/t/{{ picture.thumbnail.path }}"
-           height="{{ picture.thumbnail.height }}"
-           width="{{ picture.thumbnail.width }}"
-           alt="" />
-    </a>
-  {% endfor %}
-</div>
+{% if pictures | length > 0 %}
+  <div data-gallery>
+    {% for picture in pictures %}
+      <a href="{{ url_for('Root.picture_by_path', path=picture.path) }}"
+         title="{{ picture.name }}"
+         {% if picture.thumbnail.height > picture.thumbnail.width %}data-portrait{% else %}data-landscape{% endif %}>
+        <img src="{{ url_for('Root.send_thumbnail', path=picture.thumbnail.path) }}"
+             height="{{ picture.thumbnail.height }}"
+             width="{{ picture.thumbnail.width }}"
+             alt="" />
+      </a>
+    {% endfor %}
+  </div>
+{% else %}
+  <p>Keine Bilder gefunden.</p>
+{% endif %}

@@ -1,0 +1,26 @@
+{% extends "default.html" %}
+{% set title = "Alben" %}
+{% set collections = page.data %}
+{% block content %}
+  {% if collections | length > 0 %}
+    <main data-collections>
+      {% for collection in collections %}
+        {% set cover = collection.pictures[0] %}
+        <a href="{{ url_for('Root.collection_by_path', path=collection.path) }}">
+          <article>
+            {% if cover %}
+              <img src="{{ url_for('Root.send_thumbnail', path=cover.thumbnail.path) }}"
+                   height="{{ cover.thumbnail.height }}"
+                   width="{{ cover.thumbnail.width }}"
+                   alt="" />
+            {% endif %}
+            <h2>{{ collection.name }}</h2>
+          </article>
+        </a>
+      {% endfor %}
+    </main>
+    {{ render_partial('partials/pagination.html', meta=page.meta, path=path, size=size) }}
+  {% else %}
+    <p>Keine Alben gefunden.</p>
+  {% endif %}
+{% endblock content %}
