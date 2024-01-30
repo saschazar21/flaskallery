@@ -1,12 +1,17 @@
 {% extends "base.html" %}
 {% block header %}
-  <h1>
-    {% if title %}
-      {{ title }}
-    {% else %}
-      Galerie
-    {% endif %}
-  </h1>
+  <header>
+    <h1>
+      {% if title %}
+        {{ title }}
+      {% else %}
+        Galerie
+      {% endif %}
+    </h1>
+    <nav>
+      <a href="{{ url_for('Root.index_route',) }}">&larr; Startseite</a>
+    </nav>
+  </header>
 {% endblock header %}
 {% block content required %}
 {% endblock content %}

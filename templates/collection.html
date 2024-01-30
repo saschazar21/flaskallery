@@ -1,4 +1,17 @@
 {% extends "default.html" %}
-{% set title = collection.name %}
+{% block header %}
+  <header>
+    <h1>{{ collection.name }}</h1>
+    <nav>
+      <a href="{{ url_for('Root.index_route',) }}">&larr; Startseite</a>
+      <button data-download="{{ collection.path }}"
+              data-collection="{{ collection.name }}">Link erstellen</button>
+    </nav>
+  </header>
+{% endblock header %}
 {% block content %}
+  <main>
+    <div class="gallery-wrapper">{{ render_partial("partials/gallery.html", pictures=collection.pictures) }}</div>
+  </main>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
 {% endblock content %}

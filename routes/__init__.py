@@ -1,6 +1,7 @@
 from flask import Blueprint, redirect, render_template, request, send_from_directory
 
 from db.queries import paginate_all_collections, paginate_all_pictures, select_collection_by_path, select_picture_by_path
+from utils.archive import TEMP_ROOT
 from utils.db import get_db_connection
 from utils.pictures import PICTURES_ROOT, THUMBNAIL_ROOT
 from utils.url import DEFAULT_PAGE_SIZE, get_pagination_params
@@ -62,7 +63,7 @@ def picture_by_path(path):
     try:
         picture = select_picture_by_path(params, connection)
         collection = select_collection_by_path(
-            picture.collection.path, connection)
+            picture['collection']['path'], connection)
         return render_template('picture.html', picture=picture, collection=collection)
     except:
         return page_not_found(None)
@@ -83,3 +84,8 @@ def send_picture(path):
 @root.route('/t/<path:path>')
 def send_thumbnail(path):
     return send_from_directory(THUMBNAIL_ROOT, path)
+
+
+@root.route('/z/<path:path>')
+def send_archive(path):
+    return send_from_directory(TEMP_ROOT, path)

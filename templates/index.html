@@ -1,4 +1,9 @@
 {% extends "sidebar.html" %}
+{% block header %}
+  <header>
+    <h1>Galerie</h1>
+  </header>
+{% endblock header %}
 {% block main %}
   {{ render_partial("partials/pagination.html", meta=page.meta, path=path, size=size) }}
   {{ render_partial("partials/gallery.html", pictures=page.data) }}

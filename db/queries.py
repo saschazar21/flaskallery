@@ -277,7 +277,6 @@ def select_all_collections(connection: sqlite3.Connection | None = None):
 def select_collection_by_path(path: str, connection: sqlite3.Connection | None = None):
     query = Query(SELECT_COLLECTION_BY_PATH, connection)
     rows = query.execute({'path': path})
-    print(rows)
     return json.loads(rows[0]['result'])
 
 

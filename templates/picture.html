@@ -1,6 +1,32 @@
 {% extends "default.html" %}
-{% set title = picture.name %}
+{% block header %}
+  <header>
+    <h1>{{ picture.name }}</h1>
+    <nav>
+      <a href="{{ url_for('Root.index_route',) }}">&larr; Startseite</a>
+      <a class="button"
+         href="{{ url_for('Root.send_picture', path=picture.path) }}"
+         download="{{ picture.name }}">Download</a>
+    </nav>
+  </header>
+{% endblock header %}
 {% block content %}
   <main>
+    <section class="image-wrapper"
+             style="--aspect-ratio: {{ picture.width / picture.height }}"
+             data-ratio="{{ picture.width / picture.height }}"
+             {% if picture.height > picture.width %}data-portrait{% else %}data-horizontal{% endif %}>
+      <h2 data-sr-only>Bild</h2>
+      <img src="{{ url_for('Root.send_picture', path=picture.path) }}"
+           alt="{{ picture.name }}"
+           height="{{ picture.height }}"
+           width="{{ picture.width }}" />
+    </section>
+    <section class="gallery-wrapper">
+      <h2>
+        weitere Bilder aus dem Album <a href="{{ url_for('Root.collection_by_path', path=collection.path) }}">{{ collection.name }}</a>:
+      </h2>
+      {{ render_partial("partials/gallery.html", pictures=collection.pictures) }}
+    </section>
   </main>
 {% endblock content %}
