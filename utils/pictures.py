@@ -74,14 +74,26 @@ class Picture(Collection):
         return f"thumb_{self.hash}.jpg"
 
     def create_thumbnail(self):
-        path = os.path.join(PICTURES_ROOT, self.path)
-        im = Image.open(path)
-        self.height, self.width = (im.height, im.width)
-        im.thumbnail(Thumbnail.size)
+        im = None
+        thumbnail_path = os.path.join(
+            THUMBNAIL_ROOT, self.get_thumbnail_name())
+
+        if not os.path.exists(thumbnail_path):
+            if os.environ.get('DEBUG'):
+                print(f"Creating thumbnail for {self.path}...")
+            path = os.path.join(PICTURES_ROOT, self.path)
+            im = Image.open(path)
+            self.height, self.width = (im.height, im.width)
+            im.thumbnail(Thumbnail.size)
+            im.save(thumbnail_path)
+        else:
+            if os.environ.get('DEBUG'):
+                print(f"Skipping thumbnail for {self.path}...")
+            im = Image.open(thumbnail_path)
+
         self.thumbnail = Thumbnail(
             path=self.get_thumbnail_name(),
             hash=self.hash,
             height=im.height,
             width=im.width
         )
-        im.save(os.path.join(THUMBNAIL_ROOT, self.thumbnail.path))
