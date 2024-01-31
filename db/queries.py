@@ -47,7 +47,7 @@ SELECT json_object(
                         'hash', pictures.hash,
                         'height', pictures.height,
                         'width', pictures.width,
-                        'thumbnail', thumbnails.json
+                        'thumbnail', json(thumbnails.json)
                     )
                 )
                 FROM (
@@ -108,7 +108,7 @@ JOIN (
         'name', pictures.name,
         'height', pictures.height,
         'width', pictures.width,
-        'thumbnail', thumbnails.json
+        'thumbnail', json(thumbnails.json)
     )
     AS json, pictures.collection
     FROM (
@@ -131,7 +131,7 @@ GROUP BY collections.path
 """
 
 SELECT_ALL_PICTURES = """
-SELECT pictures.name, pictures.path, pictures.hash, collections.json AS collection
+SELECT pictures.name, pictures.path, pictures.hash, json(collections.json) AS collection
 FROM pictures
 JOIN (
     SELECT json_object('name', name, 'path', path) AS json, path
@@ -149,8 +149,8 @@ SELECT json_object(
             'hash', pictures.hash,
             'height', pictures.height,
             'width', pictures.width,
-            'collection', collections.json,
-            'thumbnail', thumbnails.json
+            'collection', json(collections.json),
+            'thumbnail', json(thumbnails.json)
         ))
         FROM (
             SELECT *
@@ -191,8 +191,8 @@ SELECT json_object(
     'hash', pictures.hash,
     'height', pictures.height,
     'width', pictures.width,
-    'collection', collections.json,
-    'thumbnail', thumbnails.json
+    'collection', json(collections.json),
+    'thumbnail', json(thumbnails.json)
 )
 AS result
 FROM (
