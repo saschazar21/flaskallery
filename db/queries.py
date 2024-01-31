@@ -93,7 +93,7 @@ SELECT_COLLECTION_BY_PATH = """
 SELECT json_object(
     'name', collections.name,
     'path', collections.path,
-    'pictures', json_group_array(pictures.json)
+    'pictures', json_group_array(json(pictures.json))
 )
 AS result
 FROM (
